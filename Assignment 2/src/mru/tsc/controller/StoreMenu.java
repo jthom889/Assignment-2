@@ -1,4 +1,4 @@
-package mru.tsc.view;
+package mru.tsc.controller;
 
 import java.io.File;
 import java.io.FileNotFoundException;
