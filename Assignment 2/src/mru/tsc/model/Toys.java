@@ -25,7 +25,7 @@ public abstract class Toys {
 	 * @param avaliableCount is the number of toys available
 	 * @param ageAppropriate is the minimum age the toy should be played with
 	 */
-	public Toys(int seriealNo, String name, String brand, double price, 
+	public Toys(int serialNo, String name, String brand, double price, 
 			int avaliableCount, String ageAppropriate) {
 		
 	}
@@ -76,6 +76,15 @@ public abstract class Toys {
 	 */
 	public String getAgeAppropriate() {
 		return ageAppropriate;
+	}
+	
+	/**
+	 * to string method that returns a formatted return for the file
+	 * @return formatted output
+	 */
+	public String format() {
+		return serialNo + ";" + name + ";" + brand + ";" + price + ";" + 
+				avaliableCount + ";" + ageAppropriate;
 	}
 
 	

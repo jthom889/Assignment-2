@@ -63,4 +63,13 @@ public class Animals extends Toys {
 	public void setSize(String size) {
 		this.size = size;
 	}
+	
+	/**
+	 * to string method that returns a formatted return for the file
+	 * @return formatted output
+	 */
+	public String format() {
+		return getSerialNo() + ";" + getName() + ";" + getBrand() + ";" + getPrice() + ";" + 
+				getAvaliableCount() + ";" + getAgeAppropriate() + ";" + material + ";" + size;
+	}
 }

@@ -44,4 +44,13 @@ public class Figures extends Toys {
 		this.classification = classification;
 	}
 	
+	/**
+	 * to string method that returns a formatted return for the file
+	 * @return formatted output
+	 */
+	public String format() {
+		return getSerialNo() + ";" + getName() + ";" + getBrand() + ";" + getPrice() + ";" + 
+				getAvaliableCount() + ";" + getAgeAppropriate() + ";" + classification;
+	}
+	
 }

@@ -64,4 +64,13 @@ public class BoardGames extends Toys {
 	public void setDesigner(String designer) {
 		this.designer = designer;
 	}
+	
+	/**
+	 * to string method that returns a formatted return for the file
+	 * @return formatted output
+	 */
+	public String format() {
+		return getSerialNo() + ";" + getName() + ";" + getBrand() + ";" + getPrice() + ";" + 
+				getAvaliableCount() + ";" + getAgeAppropriate() + ";" + noOfPlayers + ";" + designer;
+	}
 }

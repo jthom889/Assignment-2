@@ -44,4 +44,13 @@ public class Puzzles extends Toys {
 			this.puzzleType = puzzleType;
 		}
 		
+		/**
+		 * to string method that returns a formatted return for the file
+		 * @return formatted output
+		 */
+		public String format() {
+			return getSerialNo() + ";" + getName() + ";" + getBrand() + ";" + getPrice() + ";" + 
+					getAvaliableCount() + ";" + getAgeAppropriate() + ";" + puzzleType;
+		}
+		
 }

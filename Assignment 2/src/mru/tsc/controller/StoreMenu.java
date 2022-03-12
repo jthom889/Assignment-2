@@ -2,6 +2,7 @@ package mru.tsc.controller;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 import mru.tsc.model.Animals;
@@ -81,11 +82,36 @@ public class StoreMenu {
 						e.printStackTrace();
 						
 					}
-	
 				}
-				
 			}
-				
+			else 
+				System.out.println("File Not Found"); 
 		}
+	
+	public void exit() {
+		
+		try {
+			//declare variables
+			File db = new File(FILE_PATH);
+			PrintWriter pw = new PrintWriter(db);
+			
+			for (Toys t: toys) {
+			
+				pw.print(t.format());
+			}
+		pw.close();
+		
+		}
+		catch(FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+	}
+	
+	
 	
 }
