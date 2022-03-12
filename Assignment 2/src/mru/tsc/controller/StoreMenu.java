@@ -16,9 +16,12 @@ public class StoreMenu {
 	//file name
 	final String FILE_PATH = "res/toys.txt";
 	ArrayList<Toys> toys;
+	Scanner keyboard;
 	
 	public StoreMenu() {
 		toys = new ArrayList<Toys>();
+		keyboard = new Scanner(System.in);
+		
 	}	
 		
 	
@@ -109,6 +112,128 @@ public class StoreMenu {
 			e.printStackTrace();
 		}
 		
+		
+	}
+	
+	public void addToy() {
+		
+		
+		int serial = 0;
+		
+		//validating serial number
+		while (true) {
+			System.out.println("Enter Serial Number: ");
+		
+			//validating the serial and ensuring the serial is unique
+			if (keyboard.hasNextInt()) {
+				serial = keyboard.nextInt();
+				
+				int exists = 0;
+				
+				//Searches through the arrayList for an identical serial number
+				for(Toys t: toys) {
+					int serialNumber = t.getSerialNo();
+					
+					//if an identical serial number is found, exit the loop and make them try again
+					if(serial == serialNumber) {
+						System.out.println("Serial Number Already Exists. Try again");
+						break;
+					}
+					//if it is not found exit the loop
+					else {
+						exists = 1;
+						break;
+					}	
+				}
+				if(exists == 1)
+					break;
+				
+			}
+		}
+		
+		//prompting user for the rest of the variables of toy
+		System.out.println("Enter Toy Name: ");
+		String name = keyboard.nextLine();
+		
+		System.out.println("Enter Toy Brand: ");
+		String brand = keyboard.nextLine();
+		
+		double price;
+		
+		//validating the price input
+		while(true) {
+			System.out.println("Enter Toy Price: ");
+			if(keyboard.hasNextDouble()) {
+				price = keyboard.nextDouble();
+				break;
+			} 
+		}
+		
+		int count;
+		
+		//validating the price input
+		while(true) {
+			System.out.println("Enter Avaliable Count: ");
+			if(keyboard.hasNextInt()) {
+				count = keyboard.nextInt();
+				break;
+			} 
+		}
+		
+		System.out.println("Enter Appropriate Age: ");
+		String age = keyboard.nextLine();
+		
+		//determining the type of toy and adding it to arrayList
+		if (Integer.toString(serial).charAt(0) == '0' || Integer.toString(serial).charAt(0) == '1') {
+			System.out.println("Enter Classification: ");
+			String classification = keyboard.nextLine();
+			
+			//creating new object and adding it to toys
+			Toys figure = new Figures(serial, name, brand, price, count, age, classification);
+			toys.add(figure);
+		}
+		
+		else if (Integer.toString(serial).charAt(0) == '2' || Integer.toString(serial).charAt(0) == '3') {
+			System.out.println("Enter Material: ");
+			String material = keyboard.nextLine();
+			
+			System.out.println("Enter Size: ");
+			String size = keyboard.nextLine();
+			
+			//creating new object and adding it to toys
+			Toys animal = new Animals(serial, name, brand, price, count, age, material, size);
+			toys.add(animal);
+			
+		}
+		
+		else if (Integer.toString(serial).charAt(0) == '4' || Integer.toString(serial).charAt(0) == '5' ||
+				Integer.toString(serial).charAt(0) == '6') {
+			System.out.println("Enter Puzzle Type: ");
+			String puzzleType = keyboard.nextLine();
+			
+			//creating new object and adding it to toys
+			Toys puzzle = new Puzzles(serial, name, brand, price, count, age, puzzleType);
+			toys.add(puzzle);
+			
+		}
+		
+		else if (Integer.toString(serial).charAt(0) == '7' || Integer.toString(serial).charAt(0) == '8' ||
+				Integer.toString(serial).charAt(0) == '9') {
+			System.out.println("Enter Minimum Number of Players: ");
+			String players = keyboard.nextLine();
+			
+			System.out.println("Enter Maximum Number of Players: ");
+			players = players + "-" + keyboard.nextLine();
+			
+			System.out.println("Enter Designer Names (Use ',' to sepperate the names if there is more than one): ");
+			String designers = keyboard.nextLine();
+			
+			//creating new object and adding it to toys
+			Toys bg = new BoardGames(serial, name, brand, price, count, age, players, designers);
+			toys.add(bg);
+			
+			
+		}
 		
 	}
 	

@@ -82,10 +82,7 @@ public abstract class Toys {
 	 * to string method that returns a formatted return for the file
 	 * @return formatted output
 	 */
-	public String format() {
-		return serialNo + ";" + name + ";" + brand + ";" + price + ";" + 
-				avaliableCount + ";" + ageAppropriate;
-	}
+	public abstract String format();
 
 	
 	
