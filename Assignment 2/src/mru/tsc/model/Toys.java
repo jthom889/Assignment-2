@@ -69,6 +69,13 @@ public abstract class Toys {
 	public int getAvaliableCount() {
 		return avaliableCount;
 	}
+	
+	/**
+	 * @param decrement availableCount by 1
+	 */
+	public void decrementStock() {
+		this.avaliableCount--;
+	}
 
 	/**
 	 * getter for the age the toy should be sold to

@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 import mru.tsc.model.Animals;
 import mru.tsc.model.BoardGames;
@@ -87,37 +88,207 @@ public class StoreMenu {
 					}
 				}
 			}
-			else 
+			else {
 				System.out.println("File Not Found"); 
+			}
+			fileReader.close();
 		}
 	
-	public void exit() {
-		
-		try {
-			//declare variables
-			File db = new File(FILE_PATH);
-			PrintWriter pw = new PrintWriter(db);
-			
-			for (Toys t: toys) {
-			
-				pw.print(t.format());
+	public void run() {
+		this.printWelcomeMessage();
+		Scanner in = new Scanner(System.in);
+		int choice = -1;
+		while (choice != 4) {
+			this.openingChoice();
+			choice = in.nextInt();
+			switch (choice) {
+				case 1:
+					search(in);
+					break;
+				case 2:
+					addToy();
+					break;
+				case 3:
+					removeToy();
+					break;
+				case 4:
+					exit();
+					break;
+				default:
+					System.out.println("ERROR: Wrong Choice");
 			}
-		pw.close();
-		
 		}
-		catch(FileNotFoundException e) {
-			e.printStackTrace();
+		in.close();
+		System.out.println("Thank you");
+	}
+	
+	private void printWelcomeMessage() {
+		System.out.println("******************************************");
+		System.out.println("*******    WELCOME TO TOY STORE    *******");
+		System.out.println("******************************************");
+	}
+	
+	private void openingChoice() {
+		System.out.println("\nHow we may help you?\n");
+		System.out.println("1) Search Inventory and Purchase Toy");
+		System.out.println("2) Add New Toy");
+		System.out.println("3) Remove Toy");
+		System.out.println("4) Save & Exit");
+		System.out.print("\nEnter Option: ");
+	}
+	
+	private void printFindToysMenu() {
+		System.out.println("\nFind Toys With:\n");
+		System.out.println("1) Serial Number(SN)");
+		System.out.println("2) Toy Name");
+		System.out.println("3) Type");
+		System.out.println("4) Back to Main Menu");
+		System.out.print("\nEnter Option: ");
+	}
+	
+	public void printInventory() {
+		for (Toys toy: toys) {
+			System.out.println(toy);
 		}
-		catch(Exception e) {
-			e.printStackTrace();
+	}
+	
+	
+	private Toys searchBySN(long sn, boolean purchase, Scanner in) {
+		for (Toys toy: toys) {
+			if (toy.getSerialNo() == sn) {
+				System.out.println("1) " + toy.toString());
+				if (purchase) {
+					System.out.println("2) Back to Search Menu");
+					System.out.print("\nEnter Option Number to Purchase: ");
+					int optionNumber = in.nextInt();
+					if (optionNumber != 2) {
+						this.buyItem(toy);
+					}
+					System.out.println("\nPress Any Key to Continue");
+					in.nextLine();
+				}
+				return toy;
+			}
 		}
+		System.out.println("ERROR: No Toy Found");
+		return null;
+	}
+	
+	private void searchByName(String name, Scanner in) {
+		boolean found = false;
+		int index = 0;
+		HashMap<Integer, Toys> result = new HashMap<>();
+		for (Toys toy: toys) {
+			if (toy.getName().toLowerCase().contains(name.toLowerCase())) {
+				index++;
+				System.out.println(index + ") " + toy.toString());
+				result.put(index, toy);
+				found = true;
+			}
+		}
+		if (!found) {
+			System.out.println("ERROR: No Toy Found");
+		} else {
+			index++;
+			System.out.println(index + ") Back to Search Menu");
+			System.out.print("\nEnter Option Number to Purchase: ");
+			int optionNumber = in.nextInt();
+			if (result.containsKey(optionNumber)) {
+				Toys toy = result.get(optionNumber);
+				this.buyItem(toy);
+			}
+			System.out.println("\nPress Any Key to Continue");
+			in.nextLine();
+		}
+	}
+	
+	private void buyItem(Toys toy) {
+		if (toy.getAvaliableCount() > 0) {
+			toy.decrementStock();
+			System.out.println("The Transaction Successfully Terminated!!!");
+		} else {
+			System.out.println("ERROR: Item Out of Stock");
+		}
+	}
+	
+	private void searchByType(String type, Scanner in) {
+		long min = 0L;
+		long max = 0L;
 		
-		
+		if(type.toLowerCase().equals("animals")) {
+			min = 2000000000L;
+			max = 4000000000L;
+		} else if (type.toLowerCase().equals("figures")) {
+			min = 0L;
+			max = 2000000000L;
+		} else if (type.toLowerCase().equals("puzzles")) {
+			min = 4000000000L;
+			max = 7000000000L;
+		} else if (type.toLowerCase().equals("board games") || type.toLowerCase().equals("boardgames")){
+			min = 7000000000L;
+			max = 10000000000L;
+		} else {
+			System.out.println("ERROR: Type has to be one of animals, figures, puzzles or board games");
+			return;
+		}
+		boolean found = false;
+		int index = 0;
+		HashMap<Integer, Toys> result = new HashMap<>();
+		for (Toys toy: toys) {
+			if (toy.getSerialNo() >= min && toy.getSerialNo() < max) {
+				index++;
+				System.out.println(index + ") " + toy.toString());
+				result.put(index, toy);
+				found = true;
+			}
+		}
+		if (!found) {
+			System.out.println("ERROR: No Toy Found");
+		} else {
+			index++;
+			System.out.println(index + ") Back to Search Menu");
+			System.out.print("\nEnter Option Number to Purchase: ");
+			int optionNumber = in.nextInt();
+			if (result.containsKey(optionNumber)) {
+				Toys toy = result.get(optionNumber);
+				this.buyItem(toy);
+			}
+			System.out.println("\nPress Any Key to Continue");
+			in.nextLine();
+		}
+	}
+	
+	private void search(Scanner in) {
+		int choice = -1;
+		while (choice != 4) {
+			this.printFindToysMenu();
+			choice = in.nextInt();
+			switch (choice) {
+			case 1:
+				System.out.print("Enter serial number: ");
+				searchBySN(Long.parseLong(in.next()), true, in);
+				break;
+			case 2:
+				System.out.print("Enter toy name: ");
+				searchByName(in.next(), in);
+				break;
+			case 3:
+				in.nextLine();
+				System.out.print("Enter toy type: ");
+				searchByType(in.nextLine(), in);
+				break;
+			case 4:
+				break;
+			default:
+				System.out.println("ERROR: Wrong Choice. Try Again.");
+				break;
+			}
+			in.nextLine();
+		}
+	
 	}
 	
 	public void addToy() {
-		
-		
 		int serial = 0;
 		
 		//validating serial number
@@ -230,13 +401,33 @@ public class StoreMenu {
 			
 			//creating new object and adding it to toys
 			Toys bg = new BoardGames(serial, name, brand, price, count, age, players, designers);
-			toys.add(bg);
-			
-			
+			toys.add(bg);		
 		}
+	}
+	
+	private void removeToy() {
 		
 	}
 	
-	
-	
+	public void exit() {
+		
+		try {
+			//declare variables
+			File db = new File(FILE_PATH);
+			PrintWriter pw = new PrintWriter(db);
+			
+			for (Toys t: toys) {
+			
+				pw.print(t.format());
+			}
+		pw.close();
+		
+		}
+		catch(FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
 }
