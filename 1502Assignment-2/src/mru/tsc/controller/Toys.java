@@ -1,4 +1,4 @@
-package mru.tsc.model;
+package mru.tsc.controller;
 
 /**
  * this class is the superclass for all toys
@@ -8,7 +8,7 @@ package mru.tsc.model;
 public abstract class Toys {
 
 	//parameters of the toys object
-	private int serialNo;
+	private long serialNo;
 	private String name;
 	private String brand;
 	private double price;
@@ -25,16 +25,20 @@ public abstract class Toys {
 	 * @param avaliableCount is the number of toys available
 	 * @param ageAppropriate is the minimum age the toy should be played with
 	 */
-	public Toys(int serialNo, String name, String brand, double price, 
-			int avaliableCount, String ageAppropriate) {
-		
+	public Toys(long serialNo, String name, String brand, double price, int avaliableCount, String ageAppropriate) {
+		 this.serialNo = serialNo;
+	     this.name = name;
+	     this.brand = brand;
+	     this.price = price;
+	     this.avaliableCount = avaliableCount;
+	     this.ageAppropriate = ageAppropriate;
 	}
 
 	/**
 	 * getter for serial number
 	 * @return
 	 */
-	public int getSerialNo() {
+	public long getSerialNo() {
 		return serialNo;
 	}
 
@@ -85,12 +89,21 @@ public abstract class Toys {
 		return ageAppropriate;
 	}
 	
+	@Override
 	/**
 	 * to string method that returns a formatted return for the file
 	 * @return formatted output
 	 */
-	public abstract String format();
+	public String toString() {
+        return "Serial Number: " + serialNo + ", Name: " + name + ", Brand: " + brand + ", Price: " + price
+                + ", Available Count: " + avaliableCount + ", Age Appropriate: " + ageAppropriate;
+    }
 
-	
-	
+	/**
+	 * Formatting for Toys
+	 * @return toys to user
+	 */
+	public String Format() {
+		return String.format("%d;%s;%s;%f;%d;%s", this.serialNo, this.name, this.brand, this.price, this.avaliableCount, this.ageAppropriate);
+	}
 }
