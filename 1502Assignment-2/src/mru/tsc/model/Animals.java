@@ -11,8 +11,6 @@ public class Animals extends Toys {
 	/**
 	 * used enum for size of animals which is either Small, Medium, or Large
 	 * sizes variable declared with Size taking sizes as parameter
-	 * 
-	 *
 	 */
 	enum Size {
 		Small ("Small"), 

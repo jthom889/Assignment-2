@@ -35,7 +35,7 @@ public class StoreMenu {
 	}
 	
 	/**
-	 * Method that loads the table
+	 * Method that loads all information
 	 * @param file the current file
 	 */
 	public void loadData(String file) {
@@ -135,13 +135,18 @@ public class StoreMenu {
 		System.out.println("Thank you");
 	}
 
-	
+	/**
+	 * Prints the "header"
+	 */
 	private void printWelcomeMessage() {
 		System.out.println("******************************************");
 		System.out.println("*******    WELCOME TO TOY STORE    *******");
 		System.out.println("******************************************");
 	}
 	
+	/**
+	 * Prints the Main Menu
+	 */
 	private void openingChoice() {
 		System.out.println("\nHow we may help you?\n");
 		System.out.println("1) Search Inventory and Purchase Toy");
@@ -151,6 +156,9 @@ public class StoreMenu {
 		System.out.print("\nEnter Option: ");
 	}
 	
+	/**
+	 * Prints the SUb Menu
+	 */
 	private void printFindToysMenu() {
 		System.out.println("\nFind Toys With:\n");
 		System.out.println("1) Serial Number(SN)");
@@ -160,13 +168,23 @@ public class StoreMenu {
 		System.out.print("\nEnter Option: ");
 	}
 	
+	/**
+	 * Prints out the things that were asked for
+	 */
 	public void printInventory() {
 		for (Toys toy: toys) {
 			System.out.println(toy);
 		}
 	}
 	
-	
+	/**
+	 * Used to search the file for the serial number
+	 * @param sn the serial number of the toy
+	 * @param purchase the purchase price of the toy
+	 * @param in the users input
+	 * @param print sees if the it can print
+	 * @return
+	 */
 	private Toys searchBySN(long sn, boolean purchase, Scanner in, boolean print) {
 		for (Toys toy: toys) {
 			if (toy.getSerialNo() == sn) {
@@ -193,6 +211,11 @@ public class StoreMenu {
 		return null;
 	}
 	
+	/**
+	 *  Used to search the file for the name
+	 * @param name of the toy
+	 * @param in the users input
+	 */
 	private void searchByName(String name, Scanner in) {
 		boolean found = false;
 		int index = 0;
@@ -221,6 +244,10 @@ public class StoreMenu {
 		}
 	}
 	
+	/**
+	 *  Purchased the toy that is selected
+	 * @param toy that is selected
+	 */
 	private void buyItem(Toys toy) {
 		if (toy.getAvaliableCount() > 0) {
 			toy.decrementStock();
@@ -230,6 +257,11 @@ public class StoreMenu {
 		}
 	}
 	
+	/**
+	 * Used to search the file for the type
+	 * @param type that is selected
+	 * @param in the users input
+	 */
 	private void searchByType(String type, Scanner in) {
 		long min = 0L;
 		long max = 0L;
@@ -278,6 +310,10 @@ public class StoreMenu {
 		}
 	}
 	
+	/**
+	 * Where searches lead to
+	 * @param in the users input
+	 */
 	private void search(Scanner in) {
 		int choice = -1;
 		while (choice != 4) {
@@ -308,6 +344,11 @@ public class StoreMenu {
 	
 	}
 	
+	/**
+	 * Adds a new toy to the file
+	 * @param in the users input
+	 * @throws PriceException
+	 */
 	private void addToy(Scanner in) throws PriceException {
 		in.nextLine();
 		System.out.print("Enter Serial Number: ");
@@ -386,6 +427,11 @@ public class StoreMenu {
 		in.nextLine();
 	}
 	
+	/**
+	 * Removes a toy from the file
+	 * @param in the users input
+	 * @throws NumberFormatException
+	 */
 	private void removeToy(Scanner in) throws NumberFormatException {
 		in.nextLine();
 		System.out.print("Enter Serial Number: ");
@@ -427,6 +473,9 @@ public class StoreMenu {
 		}
 	}
 	
+	/**
+	 * Saves the information into the file before terminating the program
+	 */
 	public void exit() {
 		
 		try {

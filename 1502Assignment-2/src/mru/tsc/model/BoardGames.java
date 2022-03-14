@@ -47,6 +47,18 @@ public class BoardGames extends Toys {
         this.designer = new ArrayList<String>(Arrays.asList(designerList));
 	}
 
+	/**
+	 * Secondary constroctor for the min and max amount of people
+	 *@param s is the serial number
+	 * @param n is the name of the toy
+	 * @param b is the brand of the toy
+	 * @param p is the price of the toy
+	 * @param aC is the available count of the toy
+	 * @param aA is the age appropriate number for the toy
+	 * @param min is the minimum amount of people
+	 * @param max is the maximum amount of people
+	 * @param designer is the creator of the game
+	 */
 	public BoardGames(long s, String n, String b, double p, int aC, String aA, int min, int max, String designer) {
 		super(s, n, b, p, aC, aA);
 		this.min = min;
@@ -56,6 +68,9 @@ public class BoardGames extends Toys {
 	}
 	
 	@Override
+	/**
+	 * Prints the info in the following way
+	 */
 	public String toString() {
         String res =  "Category: Board Games, " + super.toString() + ", Min Players: " + this.min + 
                 ", Max Players: " + this.max + ", Designers: ";
